@@ -1,8 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import WaypointContext from '../../context/waypoint/waypointContext';
 
 const WaypointItem = ({ waypoint }) => {
+    const waypointContext = useContext(WaypointContext);
+
     const { id, name, tag, lat, type} = waypoint;
+    const { deleteWaypoint, setCurrent, clearCurrent } = waypointContext;
+
+    const onDelete = () => {
+        deleteWaypoint(id);
+        clearCurrent();
+    }
+
     return (
         <div className="card bg-light">
            <h3 className="text-primary text-left">
@@ -23,8 +33,8 @@ const WaypointItem = ({ waypoint }) => {
                </li>)} */}
            </ul>
            <p>
-               <button className='btn btn-dark btn-sm'>Edit</button>
-               <button className='btn btn-danger btn-sm'>Delete</button>
+               <button className='btn btn-dark btn-sm' onClick={() => setCurrent(waypoint)}>Edit</button>
+               <button className='btn btn-danger btn-sm' onClick={onDelete} >Delete</button>
            </p>
         </div>
     )
