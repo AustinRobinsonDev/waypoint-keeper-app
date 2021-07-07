@@ -14,7 +14,7 @@ const Login = () => {
         e.preventDefault();
     }
 
-    const { name, email, password, password2 } = user;
+    const { email, password} = user;
     return (
         <div className='form-container'>
             <h1>Account <span className="text-primary">Login</span></h1>

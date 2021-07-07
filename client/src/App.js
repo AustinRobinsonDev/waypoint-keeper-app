@@ -10,6 +10,12 @@ import About from './components/pages/About';
 import WaypointState from './context/waypoint/WaypointState';
 import AlertState from './context/alert/AlertState'
 import AuthState from './context/auth/AuthState';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token){
+  setAuthToken(localStorage.token)
+}
+
 const App = () => {
   return (
     <AuthState>
