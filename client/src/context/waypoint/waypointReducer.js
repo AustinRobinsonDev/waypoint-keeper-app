@@ -21,7 +21,7 @@ export default (state, action) => {
         case DELETE_WAYPOINT:
             return {
                 ...state,
-                waypoints: state.waypoints.filter(waypoint => waypoint.id === action.payload.id)
+                waypoints: state.waypoints.filter(waypoint => waypoint.id !== action.payload)
             };
         case SET_CURRENT:
             return {
