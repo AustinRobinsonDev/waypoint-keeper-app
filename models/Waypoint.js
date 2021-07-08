@@ -26,4 +26,4 @@ const WaypointSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Waypoint', WaypointSchema);
+module.exports = mongoose.model('waypoint', WaypointSchema);

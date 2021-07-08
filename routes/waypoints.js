@@ -32,7 +32,7 @@ router.post('/', [auth, [
       const {name, tag, lat, type} = req.body;
 
       try {
-          const newWaypoint = new Waypoint({ name, tag, lat, type, user: req.user._id});
+          const newWaypoint = new Waypoint({ name, tag, lat, type, user: req.user.id});
           const waypoint = await newWaypoint.save();
           res.json(waypoint);
       } catch (err) {

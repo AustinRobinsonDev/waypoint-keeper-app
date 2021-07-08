@@ -8,10 +8,10 @@ const WaypointItem = ({ waypoint }) => {
 
     const { deleteWaypoint, setCurrent, clearCurrent } = waypointContext;
 
-    const { _id, name, tag, lat, type} = waypoint;
+    const { id, name, tag, lat, type} = waypoint;
 
     const onDelete = () => {
-        deleteWaypoint(_id);
+        deleteWaypoint(id);
         clearCurrent();
     }
 
