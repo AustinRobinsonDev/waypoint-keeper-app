@@ -5,11 +5,13 @@ import WaypointContext from '../../context/waypoint/waypointContext';
 const WaypointItem = ({ waypoint }) => {
     const waypointContext = useContext(WaypointContext);
 
-    const { id, name, tag, lat, type} = waypoint;
+
     const { deleteWaypoint, setCurrent, clearCurrent } = waypointContext;
 
+    const { _id, name, tag, lat, type} = waypoint;
+
     const onDelete = () => {
-        deleteWaypoint(id);
+        deleteWaypoint(_id);
         clearCurrent();
     }
 
@@ -28,9 +30,6 @@ const WaypointItem = ({ waypoint }) => {
                {lat && (<li>
                     {lat}
                </li>)}
-               {/* {lng && (<li>
-                    {lng}
-               </li>)} */}
            </ul>
            <p>
                <button className='btn btn-dark btn-sm' onClick={() => setCurrent(waypoint)}>Edit</button>

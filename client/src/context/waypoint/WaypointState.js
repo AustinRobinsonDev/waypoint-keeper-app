@@ -4,23 +4,35 @@ import axios from 'axios'
 import waypointReducer from './waypointReducer';
 import {
     ADD_WAYPOINT,
+    CLEAR_WAYPOINTS,
 DELETE_WAYPOINT,
 SET_CURRENT,
 CLEAR_CURRENT,
 WAYPOINT_ERROR,
 UPDATE_WAYPOINT,
 FILTER_WAYPOINT,
-CLEAR_FILTER
+CLEAR_FILTER,
+GET_WAYPOINTS
 } from '../types';
 
 const WaypointState = props => {
     const initialState = {
-        waypoints: [],
+          waypoints: null,
           current: null,
           filtered: null,
           error: null
     };
     const [state, dispatch] = useReducer(waypointReducer, initialState);
+
+    //get waypoints
+    const getWaypoints = async () => {
+        try {
+            const res = await axios.get('/api/waypoints');
+            dispatch({ type: GET_WAYPOINTS, payload: res.data });
+        } catch (err) {
+            dispatch({ type: WAYPOINT_ERROR, payload: err.response });
+        }
+    }
 
     //add waypoint
     const addWaypoint = async waypoint => {
@@ -33,7 +45,7 @@ const WaypointState = props => {
             const res = await axios.post('/api/waypoints', waypoint, config);
             dispatch({ type: ADD_WAYPOINT, payload: res.data});
         } catch (err) {
-            dispatch({ type: WAYPOINT_ERROR, payload: err.response.msg});
+            dispatch({ type: WAYPOINT_ERROR, payload: err.response });
         }
     }
     //delete waypoint
@@ -74,7 +86,8 @@ const WaypointState = props => {
             clearCurrent,
             updateWaypoint,
             filterWaypoints,
-            clearFilter
+            clearFilter,
+            getWaypoints
         }}>
             {props.children}
         </WaypointContext.Provider>

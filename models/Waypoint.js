@@ -15,12 +15,10 @@ const WaypointSchema = mongoose.Schema({
         required: true,
     },
     lat: {
-        type: String,
-        required: true
+        type: String
     },
-    lng: {
-        type: String,
-        required: true
+    type: {
+        type: String
     },
     date: {
         type: Date,
@@ -28,4 +26,4 @@ const WaypointSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('waypoint', WaypointSchema);
+module.exports = mongoose.model('Waypoint', WaypointSchema);

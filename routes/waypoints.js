@@ -11,7 +11,7 @@ const Waypoint = require('../models/Waypoint');
 // @access          Private
 router.get('/', auth, async (req, res) => {
     try {
-        const waypoints = await Waypoint.find({ user: req.user.id }).sort({ date: -1});
+        const waypoints = await Waypoint.find({ user: req.user._id }).sort({ date: -1});
         res.json(waypoints);
     } catch (err) {
         console.error(err.message);
@@ -29,10 +29,10 @@ router.post('/', [auth, [
       if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
       }
-      const {name, tag, lat, lng} = req.body;
+      const {name, tag, lat, type} = req.body;
 
       try {
-          const newWaypoint = new Waypoint({ name, tag, lat, lng, user: req.user.id});
+          const newWaypoint = new Waypoint({ name, tag, lat, type, user: req.user._id});
           const waypoint = await newWaypoint.save();
           res.json(waypoint);
       } catch (err) {
@@ -45,13 +45,13 @@ router.post('/', [auth, [
 // @desc            update waypoint
 // @access          Private
 router.put('/:id', auth, async (req, res) => {
-    const {name, tag, lat, lng} = req.body;
+    const {name, tag, lat, type} = req.body;
     //build waypoint object
     const waypointFields = {};
     if (name) waypointFields.name = name;
     if (tag) waypointFields.tag = tag;
     if (lat) waypointFields.lat = lat;
-    if (lng) waypointFields.lng = lng;
+    if (type) waypointFields.type = type;
 
     try {
         let waypoint = await Waypoint.findById(req.params.id);

@@ -1,4 +1,6 @@
 import {ADD_WAYPOINT,
+    GET_WAYPOINTS,
+    CLEAR_WAYPOINTS,
     DELETE_WAYPOINT,
     SET_CURRENT,
     CLEAR_CURRENT,
@@ -9,20 +11,29 @@ import {ADD_WAYPOINT,
 
 export default (state, action) => {
     switch(action.type) {
+        case GET_WAYPOINTS:
+            return {
+                ...state,
+                waypoints: action.payload,
+                loading: false
+            }
         case ADD_WAYPOINT:
             return {
                 ...state,
-                waypoints: [...state.waypoints, action.payload]
+                waypoints: [...state.waypoints, action.payload],
+                loading: false
             };
         case UPDATE_WAYPOINT:
             return {
                 ...state,
-                waypoints: state.waypoints.map(waypoint => waypoint.id === action.payload.id ?  action.payload : waypoint)
+                waypoints: state.waypoints.map(waypoint => waypoint.id === action.payload.id ?  action.payload : waypoint),
+                loading: false
             }
         case DELETE_WAYPOINT:
             return {
                 ...state,
-                waypoints: state.waypoints.filter(waypoint => waypoint.id !== action.payload)
+                waypoints: state.waypoints.filter(waypoint => waypoint.id !== action.payload),
+                loading: false
             };
         case SET_CURRENT:
             return {
