@@ -2,6 +2,7 @@ import {ADD_WAYPOINT,
     DELETE_WAYPOINT,
     SET_CURRENT,
     CLEAR_CURRENT,
+    WAYPOINT_ERROR,
     UPDATE_WAYPOINT,
     FILTER_WAYPOINT,
     CLEAR_FILTER} from '../types';
@@ -45,7 +46,12 @@ export default (state, action) => {
                 return {
                     ...state,
                     filtered: null
-                };
+                }
+                case WAYPOINT_ERROR:
+                    return {
+                        ...state,
+                        error: action.payload
+                    }
         default: 
             return state;
     }

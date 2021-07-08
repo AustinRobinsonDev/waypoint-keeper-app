@@ -4,6 +4,7 @@ export const SET_CURRENT = 'SET_CURRENT'
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const UPDATE_WAYPOINT = 'UPDATE_WAYPOINT';
 export const FILTER_WAYPOINT = 'FILTER_WAYPOINT';
+export const WAYPOINT_ERROR = 'WAYPOINT_ERROR';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';

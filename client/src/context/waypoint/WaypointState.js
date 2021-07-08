@@ -1,50 +1,40 @@
 import React, { useReducer } from 'react';
-import {v4 as uuidv4} from "uuid";
 import WaypointContext from './waypointContext';
+import axios from 'axios'
 import waypointReducer from './waypointReducer';
-import {ADD_WAYPOINT,
+import {
+    ADD_WAYPOINT,
 DELETE_WAYPOINT,
 SET_CURRENT,
 CLEAR_CURRENT,
+WAYPOINT_ERROR,
 UPDATE_WAYPOINT,
 FILTER_WAYPOINT,
-CLEAR_FILTER} from '../types';
+CLEAR_FILTER
+} from '../types';
 
 const WaypointState = props => {
     const initialState = {
-        waypoints: [
-            {
-              id: 1,
-              name: "Jill Johnson",
-              tag: "jill@gmail.com",
-              lat: "111-111-1111",
-              type: "personal",
-            },
-            {
-              id: 2,
-              name: "Sara Watson",
-              tag: "sara@gmail.com",
-              lat: "222-222-2222",
-              type: "personal",
-            },
-            {
-              id: 3,
-              name: "Harry White",
-              tag: "harry@gmail.com",
-              lat: "333-333-3333",
-              type: "professional",
-            },
-          ],
+        waypoints: [],
           current: null,
-          filtered: null
+          filtered: null,
+          error: null
     };
     const [state, dispatch] = useReducer(waypointReducer, initialState);
 
     //add waypoint
-    const addWaypoint = waypoint => {
-        waypoint.id = uuidv4();
-        dispatch({ type: ADD_WAYPOINT, payload: waypoint});
-        console.log(waypoint);
+    const addWaypoint = async waypoint => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.post('/api/waypoints', waypoint, config);
+            dispatch({ type: ADD_WAYPOINT, payload: res.data});
+        } catch (err) {
+            dispatch({ type: WAYPOINT_ERROR, payload: err.response.msg});
+        }
     }
     //delete waypoint
     const deleteWaypoint = id => {
@@ -77,6 +67,7 @@ const WaypointState = props => {
             waypoints: state.waypoints,
             current: state.current,
             filtered: state.filtered,
+            error: state.error,
             addWaypoint,
             deleteWaypoint,
             setCurrent,
