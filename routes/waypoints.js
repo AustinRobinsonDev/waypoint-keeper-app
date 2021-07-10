@@ -11,7 +11,7 @@ const Waypoint = require('../models/Waypoint');
 // @access          Private
 router.get('/', auth, async (req, res) => {
     try {
-        const waypoints = await Waypoint.find({ user: req.user._id }).sort({ date: -1});
+        const waypoints = await Waypoint.find({ user: req.user.id }).sort({ date: -1});
         res.json(waypoints);
     } catch (err) {
         console.error(err.message);
