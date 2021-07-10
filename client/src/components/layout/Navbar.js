@@ -2,14 +2,17 @@ import React, {Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
+import WaypointContext from '../../context/waypoint/waypointContext';
 
 const Navbar = ({ title, icon }) => {
     const authContext = useContext(AuthContext);
-
+    const waypointContext = useContext(WaypointContext);
+    const { clearWaypoints } = waypointContext;
     const { isAuthenticated, logout, user} = authContext;
 
     const onLogout = () => {
         logout();
+        clearWaypoints();
     }
 
     const authLinks = (

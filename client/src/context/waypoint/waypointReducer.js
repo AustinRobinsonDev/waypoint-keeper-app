@@ -20,21 +20,29 @@ export default (state, action) => {
         case ADD_WAYPOINT:
             return {
                 ...state,
-                waypoints: [...state.waypoints, action.payload],
+                waypoints: [action.payload, ...state.waypoints],
                 loading: false
             };
         case UPDATE_WAYPOINT:
             return {
                 ...state,
-                waypoints: state.waypoints.map(waypoint => waypoint.id === action.payload.id ?  action.payload : waypoint),
+                waypoints: state.waypoints.map(waypoint => waypoint._id === action.payload._id ?  action.payload : waypoint),
                 loading: false
             }
         case DELETE_WAYPOINT:
             return {
                 ...state,
-                waypoints: state.waypoints.filter(waypoint => waypoint.id !== action.payload),
+                waypoints: state.waypoints.filter(waypoint => waypoint._id !== action.payload),
                 loading: false
             };
+        case CLEAR_WAYPOINTS:
+            return {
+                ...state,
+                waypoints: null,
+                filtered: null,
+                current: null,
+                error: null
+            }
         case SET_CURRENT:
             return {
                 ...state,

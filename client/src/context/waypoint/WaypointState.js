@@ -49,8 +49,34 @@ const WaypointState = props => {
         }
     }
     //delete waypoint
-    const deleteWaypoint = id => {
-        dispatch({ type: DELETE_WAYPOINT, payload: id});
+    const deleteWaypoint = async id => {
+        try {
+            await axios.delete(`/api/waypoints/${id}`);
+            dispatch({ type: DELETE_WAYPOINT, payload: id});
+        } catch (err) {
+            dispatch({ type: WAYPOINT_ERROR, payload: err.response });
+        }
+    }
+
+    //update waypoint
+    const updateWaypoint = async waypoint => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.put(`/api/waypoints/${waypoint._id}`, waypoint, config);
+            dispatch({ type: UPDATE_WAYPOINT, payload: res.data});
+        } catch (err) {
+            dispatch({ type: WAYPOINT_ERROR, payload: err.response });
+        }
+
+    }
+
+    //clear waypoints
+    const clearWaypoints = () => {
+        dispatch({ type: CLEAR_WAYPOINTS });
     }
     //set current waypoint
     const setCurrent = waypoint => {
@@ -60,10 +86,7 @@ const WaypointState = props => {
     const clearCurrent = () => {
         dispatch({ type: CLEAR_CURRENT });
     }
-    //update waypoint
-    const updateWaypoint = waypoint => {
-        dispatch({ type: UPDATE_WAYPOINT, payload: waypoint});
-    }
+    
     //filter waypoint
     const filterWaypoints = text => {
         dispatch({ type: FILTER_WAYPOINT, payload: text});
@@ -87,7 +110,8 @@ const WaypointState = props => {
             updateWaypoint,
             filterWaypoints,
             clearFilter,
-            getWaypoints
+            getWaypoints,
+            clearWaypoints
         }}>
             {props.children}
         </WaypointContext.Provider>
