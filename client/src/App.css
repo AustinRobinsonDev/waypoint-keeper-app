@@ -66,6 +66,11 @@ img {
   margin-bottom: 1rem;
 }
 
+.leaflet-container {
+  width: 500px;
+  height: 250px;
+}
+
 .text-center {
   text-align: center;
 }

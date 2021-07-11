@@ -3,6 +3,7 @@ import Waypoints from '../waypoints/Waypoints';
 import WaypointForm from '../waypoints/WaypointForm';
 import WaypointFilter from '../waypoints/WaypointFilter';
 import AuthContext from '../../context/auth/authContext';
+import Map from '../waypoints/Map'
 
 const Home = () => {
     const authContext = useContext(AuthContext);
@@ -13,6 +14,7 @@ const Home = () => {
     return (
         <div className='grid-2'>
             <div>
+                <Map />
                 <WaypointForm />
             </div>
             <div>
