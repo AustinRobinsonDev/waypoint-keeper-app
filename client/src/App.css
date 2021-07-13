@@ -66,9 +66,9 @@ img {
   margin-bottom: 1rem;
 }
 
-.leaflet-container {
+.map-container {
   width: 500px;
-  height: 250px;
+  height: 400px;
 }
 
 .text-center {
