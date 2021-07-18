@@ -29,10 +29,12 @@ router.post('/', [auth, [
       if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
       }
-      const {name, tag, lat, type} = req.body;
+      //change
+      const {name, tag, position, lat, lng} = req.body;
 
       try {
-          const newWaypoint = new Waypoint({ name, tag, lat, type, user: req.user.id});
+          //change
+          const newWaypoint = new Waypoint({ name, tag, position, lat, lng, user: req.user.id});
           const waypoint = await newWaypoint.save();
           res.json(waypoint);
       } catch (err) {
@@ -45,13 +47,16 @@ router.post('/', [auth, [
 // @desc            update waypoint
 // @access          Private
 router.put('/:id', auth, async (req, res) => {
-    const {name, tag, lat, type} = req.body;
+    //change
+    const {name, tag, position, lat, lng} = req.body;
     //build waypoint object
     const waypointFields = {};
+    //change
     if (name) waypointFields.name = name;
     if (tag) waypointFields.tag = tag;
+    if (position) waypointFields.position = position;
     if (lat) waypointFields.lat = lat;
-    if (type) waypointFields.type = type;
+    if (lng) waypointFields.lng = lng;
 
     try {
         let waypoint = await Waypoint.findById(req.params.id);

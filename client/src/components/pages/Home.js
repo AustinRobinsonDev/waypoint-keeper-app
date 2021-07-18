@@ -3,7 +3,7 @@ import Waypoints from '../waypoints/Waypoints';
 import WaypointForm from '../waypoints/WaypointForm';
 import WaypointFilter from '../waypoints/WaypointFilter';
 import AuthContext from '../../context/auth/authContext';
-import MapApp from '../use-mapbox-gl-js-with-react/MapApp'
+import MapApp from '../waypoints/MapApp'
 
 const Home = () => {
     const authContext = useContext(AuthContext);

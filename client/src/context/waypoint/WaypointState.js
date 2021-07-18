@@ -29,6 +29,7 @@ const WaypointState = props => {
         try {
             const res = await axios.get('/api/waypoints');
             dispatch({ type: GET_WAYPOINTS, payload: res.data });
+            //console.log(res.data)
         } catch (err) {
             dispatch({ type: WAYPOINT_ERROR, payload: err.response });
         }

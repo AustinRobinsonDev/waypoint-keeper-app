@@ -1,3 +1,4 @@
+const { LngLat } = require('mapbox-gl');
 const mongoose = require('mongoose');
 
 const WaypointSchema = mongoose.Schema({
@@ -14,10 +15,13 @@ const WaypointSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    position: {
+        type: Array
+    },
     lat: {
         type: String
     },
-    type: {
+    lng: {
         type: String
     },
     date: {

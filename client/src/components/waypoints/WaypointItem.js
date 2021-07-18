@@ -8,7 +8,7 @@ const WaypointItem = ({ waypoint }) => {
 
     const { deleteWaypoint, setCurrent, clearCurrent } = waypointContext;
 
-    const { _id, name, tag, lat, type} = waypoint;
+    const { _id, name, tag, position, lat, lng} = waypoint;
 
     const onDelete = () => {
         deleteWaypoint(_id);
@@ -19,9 +19,9 @@ const WaypointItem = ({ waypoint }) => {
         <div className="card bg-light">
            <h3 className="text-primary text-left">
                {name}{' '} 
-               <span style={{ float: 'right'}}
+               {/* <span style={{ float: 'right'}}
                 className={'badge ' + (type === 'professional' ? 'badge-success' : 'badge-primary')}>{type.charAt(0).toUpperCase() + type.slice(1)}
-               </span>
+               </span> */}
            </h3> 
            <ul className="list">
                {tag && (<li>
@@ -29,6 +29,9 @@ const WaypointItem = ({ waypoint }) => {
                </li>)}
                {lat && (<li>
                     {lat}
+               </li>)}
+               {lng && (<li>
+                    {lng}
                </li>)}
            </ul>
            <p>
