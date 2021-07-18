@@ -368,6 +368,7 @@ table th {
   width: 100%;
   border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
+  height: 75px;
   margin-bottom: 1rem;
 }
 

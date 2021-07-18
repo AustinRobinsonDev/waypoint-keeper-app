@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 import WaypointContext from '../../context/waypoint/waypointContext';
+import FontAwesome from 'react-fontawesome';
 
 const Navbar = ({ title, icon }) => {
     const authContext = useContext(AuthContext);
@@ -40,7 +41,7 @@ const Navbar = ({ title, icon }) => {
     )
     return (
         <div className='navbar bg-primary'>
-            <h1>{title}</h1>
+            <h1>{title}{' '}{icon}</h1>
             <ul>
 {isAuthenticated ? authLinks : guestLinks}
             </ul>
@@ -55,7 +56,7 @@ Navbar.propTypes = {
 
 Navbar.defaultProps = {
     title: 'Waypoint Keeper',
-    icon: ''
+    icon: <FontAwesome className="fa-solid fa-map" name="map"/>
 }
 
 export default Navbar
