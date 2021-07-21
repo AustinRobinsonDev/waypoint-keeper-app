@@ -51,7 +51,7 @@ const Navbar = ({ title, icon }) => {
 
 Navbar.propTypes = {
     title: PropTypes.string.isRequired,
-    icon: PropTypes.string
+    icon: PropTypes.element
 }
 
 Navbar.defaultProps = {

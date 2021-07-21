@@ -36,7 +36,6 @@ const WaypointForm = () => {
 
     const onSubmit = e => {
         e.preventDefault(); 
-        setWaypoint({ ...waypoint.position.push(Number(lat), Number(lng))});
         if(current === null){
             addWaypoint(waypoint);
 

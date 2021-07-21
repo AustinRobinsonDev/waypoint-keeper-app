@@ -1,6 +1,7 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import WaypointItem from '../waypoints/WaypointItem';
 import Spinner from '../layout/Spinner';
+import { FlyToInterpolator } from 'react-map-gl';
 import WaypointContext from '../../context/waypoint/waypointContext';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 //wrap under fragment "TransitionGroup"
@@ -8,7 +9,7 @@ import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
 const Waypoints = (props) => {
     const waypointContext = useContext(WaypointContext);
-    const { waypoints, filtered, getWaypoints, loading } = waypointContext;
+    const { waypoints, filtered, getWaypoints, loading, current } = waypointContext;
 
     useEffect(() => {
         getWaypoints();
@@ -17,7 +18,6 @@ const Waypoints = (props) => {
     if (waypoints !== null && waypoints.length === 0 && !loading){
         return <h4>Please add a contact</h4>
     }
-
 
     return (
         <Fragment>
