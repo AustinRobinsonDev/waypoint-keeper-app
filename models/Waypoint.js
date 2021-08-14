@@ -1,4 +1,4 @@
-const { LngLat } = require('mapbox-gl');
+
 const mongoose = require('mongoose');
 
 const WaypointSchema = mongoose.Schema({

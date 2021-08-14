@@ -8,27 +8,26 @@ import FontAwesome from 'react-fontawesome';
 //   top: 10
 // };
 
-const MapApp = () => {
+const MapApp = (props) => {
   const waypointContext = useContext(WaypointContext);
-  const { waypoints, getWaypoints, current, viewports } = waypointContext;
-
-
+  const { waypoints, getWaypoints, current} = waypointContext;
+  const {viewport, setViewport} = props;
   useEffect(() => {
     getWaypoints();
   },[]);
-
-  const [viewport, setViewport] = useState({
-    width: 500,
-    height: 400,
-    latitude: 34.328801,
-    longitude: -87.389230,
-    zoom: 8
-
-
-  });
-
- 
-
+  useEffect(() => {
+    if(current !== null) {
+      //console.log(current)
+      //console.log(viewport)
+      setViewport({
+        longitude: current.position[0],
+        latitude: current.position[1],
+        zoom: 11,
+        transitionInterpolator: new FlyToInterpolator({speed: 1.2}),
+        transitionDuration: 'auto'
+      });
+    } 
+}, [waypointContext, current]);
   // const currentChange = () => {
   //   if (current !== null) {
   //     setViewport({
@@ -40,28 +39,14 @@ const MapApp = () => {
   //     });
   //   }
   // }
-  //currentChange()
-  // const currentChange = () => {
-  //   if (viewports === current) {
-  //     setViewport({
-  //       ...viewport,
-  //       longitude: parseFloat(current.position[0]),
-  //       latitude: parseFloat(current.position[1]),
-  //       zoom: 11,
-  //       transitionInterpolator: new FlyToInterpolator({speed: 1.2}),
-  //       transitionDuration: 'auto'
-  //     });
-  //   }
-
-  // };
 
       return (
         <div>
-            <ReactMapGL {...viewport} onViewportChange={(viewport) => {
-                  setViewport(viewport)
-                }} 
+            <ReactMapGL {...viewport} onViewportChange={setViewport} 
               mapboxApiAccessToken="pk.eyJ1IjoiYXVzdGlucm9iaW5zb24yMDI0IiwiYSI6ImNrcjE1em5qNDAxbXkybm4zbWs3b3h3YTEifQ.b3P8rKXgjapDCkXQ_qplPw"
               mapStyle='mapbox://styles/austinrobinson2024/ckr2iles21xj917nzmwcya94g'
+              //transitionDuration={1000}
+              //transitionInterpolator={new FlyToInterpolator()}
             >
               {waypoints !== null ? (
                 waypoints.map(singlePoint => (

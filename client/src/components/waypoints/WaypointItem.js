@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WaypointContext from '../../context/waypoint/waypointContext';
+import {FlyToInterpolator} from 'react-map-gl';
 
-const WaypointItem = ({ waypoint }, props) => {
+const WaypointItem = (props) => {
     const waypointContext = useContext(WaypointContext);
-
-    const { deleteWaypoint, setCurrent, clearCurrent, viewports, current } = waypointContext;
+    const { waypoint, viewport, setViewport } = props;
+    const { deleteWaypoint, setCurrent, clearCurrent, current } = waypointContext;
 
     const { _id, name, tag, position, lat, lng} = waypoint;
 
@@ -13,9 +14,20 @@ const WaypointItem = ({ waypoint }, props) => {
         deleteWaypoint(_id);
         clearCurrent();
     }
-    // const onEdit = () => {
-    //     viewports = current;
-    // }
+    const onEdit = () => {
+    if (current !== null) {
+        setViewport({
+            ...viewport,
+            longitude: current.position[0],
+            latitude: current.position[1],
+            zoom: 11,
+            transitionInterpolator: new FlyToInterpolator({speed: 1.2}),
+            transitionDuration: 'auto'
+          });
+          console.log('item', current)
+    }
+
+    }
 
     return (
         <div className="card bg-light">
@@ -39,7 +51,7 @@ const WaypointItem = ({ waypoint }, props) => {
            <p>
                <button className='btn btn-dark btn-sm' onClick={() => {
                    setCurrent(waypoint);
-           
+                    onEdit();
                    }}>Edit</button>
                <button className='btn btn-danger btn-sm' onClick={onDelete} >Delete</button>
            </p>

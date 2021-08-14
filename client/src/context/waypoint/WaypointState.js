@@ -20,16 +20,7 @@ const WaypointState = props => {
           waypoints: null,
           current: null,
           filtered: null,
-          error: null,
-          viewports: {
-            latitude: 33.585510,
-            longitude: -86.288071,
-            width: "500px",
-            height: "400px",
-            zoom: 6,
-            bearing: 0,
-            pitch: 0
-          }
+          error: null
     };
     const [state, dispatch] = useReducer(waypointReducer, initialState);
 
@@ -89,7 +80,7 @@ const WaypointState = props => {
         dispatch({ type: CLEAR_WAYPOINTS });
     }
     //set current waypoint
-    const setCurrent = waypoint => {
+    const setCurrent = (waypoint) => {
         dispatch({ type: SET_CURRENT, payload: waypoint});
     }
     //clear current waypoint
