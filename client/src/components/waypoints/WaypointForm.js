@@ -4,8 +4,6 @@ const WaypointForm = () => {
 
     const waypointContext = useContext(WaypointContext);
     const { addWaypoint, current, clearCurrent, updateWaypoint } = waypointContext;
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
     const [waypoint, setWaypoint] = useState({
         name: '',
         tag: '',
@@ -17,17 +15,13 @@ const WaypointForm = () => {
     const { name, tag, position, lat, lng} = waypoint;
     const onChange = e => {
         setWaypoint({ ...waypoint, [e.target.name]: e.target.value});
-        setLatitude({ ...latitude, [e.target.name]: e.target.value});
-        setLongitude({ ...longitude, [e.target.name]: e.target.value});
     }
     useEffect(() => {
         if(current !== null) {
             setWaypoint(current);
-            //setWaypoint({ [position]: [latitude, longitude]})
+            setWaypoint({ [position]: [lat, lng]})
             console.log(current)
         } else {
-            //setLatitude('');
-            //setLongitude('');
             setWaypoint({        
                 name: '',
                 tag: '',
@@ -37,8 +31,6 @@ const WaypointForm = () => {
             })
         }
     }, [waypointContext, current]);
-
-
 
     const onSubmit = e => {
         e.preventDefault(); 
@@ -60,11 +52,9 @@ const WaypointForm = () => {
             <h2 className='text-primary'>{current ? 'Edit' : 'Add Waypoint'}</h2>
             <input type="text" placeholder="name" name="name" value={name} onChange={onChange}/>
             <input type="text" placeholder="tags" name="tag" value={tag} onChange={onChange}/>
-            <input type="text" placeholder="latitude" name="latitude" value={latitude} onChange={onChange}/>
-            <input type="text" placeholder="longitude" name="longitude" value={longitude} onChange={onChange}/>
+            <input type="text" placeholder="latitude" name="lat" value={lat} onChange={onChange}/>
+            <input type="text" placeholder="longitude" name="lng" value={lng} onChange={onChange}/>
             <h5>Waypoint Type</h5>
-            {/* <input onChange={onChange} type="radio" name="type" value="personal" checked={type === 'personal'}/>{' '}Personal {' '}
-            <input onChange={onChange} type="radio" name="type" value="professional" checked={type === 'professional'}/>{' '}Professional {' '} */}
             <div>
                 <input type="submit" value={current ? 'Update' : 'Add Waypoint'} className="btn btn-primary btn-block"/>
             </div>

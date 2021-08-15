@@ -15,6 +15,7 @@ const MapApp = (props) => {
   useEffect(() => {
     getWaypoints();
   },[]);
+
   useEffect(() => {
     if(current !== null) {
       //console.log(current)
@@ -28,21 +29,26 @@ const MapApp = (props) => {
       });
     } 
 }, [waypointContext, current]);
-  // const currentChange = () => {
-  //   if (current !== null) {
-  //     setViewport({
-  //       longitude: parseFloat(current.position[0]),
-  //       latitude: parseFloat(current.position[1]),
-  //       zoom: 14,
-  //       transitionInterpolator: new FlyToInterpolator({speed: 1.2}),
-  //       transitionDuration: 'auto'
-  //     });
-  //   }
-  // }
+  const currentChange = () => {
+    if (current !== null) {
+      setViewport({
+        longitude: parseFloat(current.position[0]),
+        latitude: parseFloat(current.position[1]),
+        zoom: 14,
+        transitionInterpolator: new FlyToInterpolator({speed: 1.2}),
+        transitionDuration: 'auto'
+      });
+    }
+  }
+  const handleClick = (map, event) => {
+    let clickedLatLng = event.lngLat;
+    console.log(clickedLatLng);
+    return clickedLatLng;
+  }
 
       return (
         <div>
-            <ReactMapGL {...viewport} onViewportChange={setViewport} 
+            <ReactMapGL {...viewport} onViewportChange={setViewport} onDblClick={handleClick}
               mapboxApiAccessToken="pk.eyJ1IjoiYXVzdGlucm9iaW5zb24yMDI0IiwiYSI6ImNrcjE1em5qNDAxbXkybm4zbWs3b3h3YTEifQ.b3P8rKXgjapDCkXQ_qplPw"
               mapStyle='mapbox://styles/austinrobinson2024/ckr2iles21xj917nzmwcya94g'
               //transitionDuration={1000}
