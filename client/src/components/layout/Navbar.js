@@ -10,7 +10,6 @@ const Navbar = ({ title, icon }) => {
     const waypointContext = useContext(WaypointContext);
     const { clearWaypoints } = waypointContext;
     const { isAuthenticated, logout, user} = authContext;
-
     const onLogout = () => {
         logout();
         clearWaypoints();
